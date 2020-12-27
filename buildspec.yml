@@ -10,5 +10,5 @@ phases:
       - echo Build completed successfully
 artifacts:
   files:
-    - target/ganPlay.jar
+    - target/ganPlayServer.jar
   discard-paths: yes

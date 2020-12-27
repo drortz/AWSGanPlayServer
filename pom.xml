@@ -11,7 +11,7 @@
 	<groupId>com.ganplay</groupId>
 	<artifactId>ganPlay</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ganPlay</name>
+	<name>ganPlayServer</name>
 	<description>Demo project for Spring Boot</description>
 	<packaging>jar</packaging>
 	<properties>
@@ -76,7 +76,7 @@
           <version>1.3.2</version>
         </plugin>
       </plugins>
-	  <finalName>ganPlay</finalName>
+	  <finalName>ganPlayServer</finalName>
     </build>
 
 </project>
