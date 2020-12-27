@@ -76,6 +76,7 @@
           <version>1.3.2</version>
         </plugin>
       </plugins>
+	  <finalName>ganPlay</finalName>
     </build>
 
 </project>
