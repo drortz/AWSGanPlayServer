@@ -142,20 +142,35 @@ public class MathDataService
         }
 
         mathQuestion.setMathQuestion(num1 + arithmetic + num2);
+        int correctAnswer;
         if(isAddition) {
-            mathQuestion.setCorrectAnswer(String.valueOf(num1 + num2));
+            correctAnswer = num1 + num2;
+            mathQuestion.setCorrectAnswer(String.valueOf(correctAnswer));
         } else {
-            mathQuestion.setCorrectAnswer(String.valueOf(num1 - num2));
+            correctAnswer = num1 - num2;
+            mathQuestion.setCorrectAnswer(String.valueOf(correctAnswer));
         }
 
         List<String> multipleChoice = new ArrayList<>();
         multipleChoice.add(mathQuestion.getCorrectAnswer());
         IntStream.range(0, 3).forEach(j-> {
-            int choice = random.nextInt(high-low) + low;
-            while(multipleChoice.contains(String.valueOf(choice)))
+            int choice;
+
+            if(correctAnswer - 10 > 0)
             {
-                choice = random.nextInt(high-low) + low;
+                choice = ThreadLocalRandom.current().nextInt((correctAnswer - 10), (correctAnswer + 10));
+                while(multipleChoice.contains(String.valueOf(choice)))
+                {
+                    choice = ThreadLocalRandom.current().nextInt((correctAnswer - 10), (correctAnswer + 10));
+                }
+            } else {
+                choice = random.nextInt(10-1) + 1;
+                while(multipleChoice.contains(String.valueOf(choice)))
+                {
+                    choice = random.nextInt(10-1) + 1;
+                }
             }
+
             multipleChoice.add(String.valueOf(choice));
         });
         Collections.shuffle(multipleChoice);
