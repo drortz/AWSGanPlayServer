@@ -4,10 +4,7 @@ import com.ganplay.controllers.MathDataService;
 import com.ganplay.models.math.MathInputData;
 import com.ganplay.models.math.MathOutputData;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MathRestController {
@@ -21,6 +18,7 @@ public class MathRestController {
         return "Hello math !";
     }
 
+    @CrossOrigin
     @PostMapping("receiveMathGame")
     public MathOutputData receiveMathGame(@RequestBody MathInputData mathInputData)
     {
