@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 @Service
@@ -27,29 +28,80 @@ public class MathDataService
 
     public MathOutputData receiveMathGame(MathInputData mathInputData)
     {
-        switch(mathInputData.getGameType())
-        {
-            case 1:
-                return createAdditionSubtractionGame(mathInputData.getLevel());
-            case 2:
-                return null;
-            case 3:
-                return null;
-            default:
-                return null;
-        }
-    }
-
-    private MathOutputData createAdditionSubtractionGame(int level)
-    {
         List<MathQuestion> mathQuestionList = new ArrayList<>();
 
         IntStream.range(0, NUMBER_OF_MATH_QUESTIONS).forEach(i -> {
-            mathQuestionList.add(createMathQuestionAdditionSubtraction(level));
+            switch(mathInputData.getGameType())
+            {
+                case 1:
+                    //Addition & Subtraction
+                    mathQuestionList.add(createMathQuestionAdditionSubtraction(mathInputData.getLevel()));
+                    break;
+                case 2:
+                    //multiplication
+                    mathQuestionList.add(createMathQuestionMultiplication(mathInputData.getLevel()));
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
         });
 
         MathOutput.setMathQuestions(mathQuestionList);
         return MathOutput;
+    }
+
+    private MathQuestion createMathQuestionMultiplication(int level)
+    {
+        MathQuestion mathQuestion = new MathQuestion();
+        Random random = new Random();
+        int low;
+        int high;
+        switch(level) {
+            case 1:
+                low = 1;
+                high = 10;
+                break;
+            case 2:
+                low = 1;
+                high = 99;
+                break;
+            default:
+                low = 1;
+                high = 10;
+                break;
+        }
+        int num1 = random.nextInt(high-low) + low;
+        int num2 = random.nextInt(high-low) + low;
+        String arithmetic = " X ";
+        mathQuestion.setMathQuestion(num1 + arithmetic + num2);
+        int correctAnswer = Math.multiplyExact(num1, num2);
+        mathQuestion.setCorrectAnswer(String.valueOf(correctAnswer));
+
+        List<String> multipleChoice = new ArrayList<>();
+        multipleChoice.add(mathQuestion.getCorrectAnswer());
+        IntStream.range(0, 3).forEach(j-> {
+            int choice;
+            if(correctAnswer - 15 > 0)
+            {
+                choice = ThreadLocalRandom.current().nextInt((correctAnswer - 15), (correctAnswer + 15));
+                while(multipleChoice.contains(String.valueOf(choice)))
+                {
+                    choice = ThreadLocalRandom.current().nextInt((correctAnswer - 15), (correctAnswer + 15));
+                }
+            } else {
+                choice = random.nextInt(high - low) + low;
+                while (multipleChoice.contains(String.valueOf(choice))) {
+                    choice = random.nextInt(high - low) + low;
+                }
+            }
+            multipleChoice.add(String.valueOf(choice));
+        });
+        Collections.shuffle(multipleChoice);
+        mathQuestion.setMultipleChoise(multipleChoice);
+
+        return mathQuestion;
     }
 
     private MathQuestion createMathQuestionAdditionSubtraction(int level)
