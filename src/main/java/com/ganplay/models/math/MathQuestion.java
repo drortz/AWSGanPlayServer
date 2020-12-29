@@ -10,6 +10,15 @@ public class MathQuestion
     private String mathQuestion;
     private List<String> multipleChoise;
     private String correctAnswer;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getMathQuestion() {
         return mathQuestion;

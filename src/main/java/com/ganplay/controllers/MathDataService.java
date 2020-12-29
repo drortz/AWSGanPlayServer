@@ -24,22 +24,22 @@ public class MathDataService
     @Autowired
     private MathOutputData MathOutput;
 
-    private final int NUMBER_OF_MATH_QUESTIONS = 20;
+    private final int NUMBER_OF_MATH_QUESTIONS = 21;
 
     public MathOutputData receiveMathGame(MathInputData mathInputData)
     {
         List<MathQuestion> mathQuestionList = new ArrayList<>();
 
-        IntStream.range(0, NUMBER_OF_MATH_QUESTIONS).forEach(i -> {
+        IntStream.range(1, NUMBER_OF_MATH_QUESTIONS).forEach(i -> {
             switch(mathInputData.getGameType())
             {
                 case 1:
                     //Addition & Subtraction
-                    mathQuestionList.add(createMathQuestionAdditionSubtraction(mathInputData.getLevel()));
+                    mathQuestionList.add(createMathQuestionAdditionSubtraction(mathInputData.getLevel(), i));
                     break;
                 case 2:
                     //multiplication
-                    mathQuestionList.add(createMathQuestionMultiplication(mathInputData.getLevel()));
+                    mathQuestionList.add(createMathQuestionMultiplication(mathInputData.getLevel(), i));
                     break;
                 case 3:
                     break;
@@ -52,7 +52,7 @@ public class MathDataService
         return MathOutput;
     }
 
-    private MathQuestion createMathQuestionMultiplication(int level)
+    private MathQuestion createMathQuestionMultiplication(int level, int id)
     {
         MathQuestion mathQuestion = new MathQuestion();
         Random random = new Random();
@@ -100,11 +100,11 @@ public class MathDataService
         });
         Collections.shuffle(multipleChoice);
         mathQuestion.setMultipleChoise(multipleChoice);
-
+        mathQuestion.setId(String.valueOf(id));
         return mathQuestion;
     }
 
-    private MathQuestion createMathQuestionAdditionSubtraction(int level)
+    private MathQuestion createMathQuestionAdditionSubtraction(int level, int id)
     {
         MathQuestion mathQuestion = new MathQuestion();
         Random random = new Random();
@@ -175,6 +175,7 @@ public class MathDataService
         });
         Collections.shuffle(multipleChoice);
         mathQuestion.setMultipleChoise(multipleChoice);
+        mathQuestion.setId(String.valueOf(id));
         return mathQuestion;
     }
 }
