@@ -75,7 +75,7 @@ public class MathDataService
         int num1 = random.nextInt(high-low) + low;
         int num2 = random.nextInt(high-low) + low;
         String arithmetic = " X ";
-        mathQuestion.setMathQuestion(num1 + arithmetic + num2);
+        mathQuestion.setMathQuestion(num1 + arithmetic + num2 + " = ");
         int correctAnswer = Math.multiplyExact(num1, num2);
         mathQuestion.setCorrectAnswer(String.valueOf(correctAnswer));
 
@@ -141,7 +141,7 @@ public class MathDataService
             num1 = temp;
         }
 
-        mathQuestion.setMathQuestion(num1 + arithmetic + num2);
+        mathQuestion.setMathQuestion(num1 + arithmetic + num2 + " = ");
         int correctAnswer;
         if(isAddition) {
             correctAnswer = num1 + num2;
