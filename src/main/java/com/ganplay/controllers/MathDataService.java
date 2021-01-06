@@ -24,11 +24,22 @@ public class MathDataService
     @Autowired
     private MathOutputData MathOutput;
 
-    private final int NUMBER_OF_MATH_QUESTIONS = 21;
+    private int NUMBER_OF_MATH_QUESTIONS = 21;
+    private final int MAX_QUESTIONS_AMOUNT = 50;
+    private final int MIN_QUESTIONS_AMOUNT = 10;
 
     public MathOutputData receiveMathGame(MathInputData mathInputData)
     {
         List<MathQuestion> mathQuestionList = new ArrayList<>();
+        if(mathInputData.getNumberOfQuestions() > MAX_QUESTIONS_AMOUNT ||
+                mathInputData.getNumberOfQuestions() < MIN_QUESTIONS_AMOUNT)
+        {
+            NUMBER_OF_MATH_QUESTIONS = 21;
+        }
+        else
+        {
+            NUMBER_OF_MATH_QUESTIONS = mathInputData.getNumberOfQuestions() +1;
+        }
 
         IntStream.range(1, NUMBER_OF_MATH_QUESTIONS).forEach(i -> {
             switch(mathInputData.getGameType())

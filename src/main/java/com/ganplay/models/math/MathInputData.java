@@ -11,6 +11,15 @@ public class MathInputData
      */
     private int gameType;
     private int level;
+    private int numberOfQuestions;
+
+    public int getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public void setNumberOfQuestions(int numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+    }
 
     public int getLevel() {
         return level;
